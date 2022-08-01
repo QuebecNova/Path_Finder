@@ -1,0 +1,34 @@
+@import 'variables.scss';
+
+.pathFinder {
+	display: flex;
+	flex-flow: row wrap;
+	width: 95%;
+	height: 70%;
+	margin: -15px 0;
+}
+
+.pathFinderCell {
+	margin: 0;
+	width: 30px;
+	height: 30px;
+	padding: 15px 0;
+	background-color: white;
+	border: 1px solid $lightBlueBorders;
+}
+
+.cellClear {
+	background-color: white;
+}
+
+.cellWall {
+	background-color: $blue;
+}
+
+.cellStart {
+	background-color: $startGreen;
+}
+
+.cellFinish {
+	background-color: $finishRed;
+}
