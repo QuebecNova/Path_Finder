@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React from 'react';
 import { useAppSelector } from '../hooks/redux'
 import { setIsWall } from '../store/slices/PathFinderSlice';
 import styles from '../styles/PathFinder.module.scss'
@@ -8,12 +8,13 @@ type Props = {
     col: number,
     row: number,
     isStart: boolean,
-    isFinish: boolean
+    isFinish: boolean,
+    isWall: boolean,
+    isVisited: boolean
 }
 
-export default function PathFinderCell({col, row, isStart, isFinish}: Props) {
+function PathFinderCell({col, row, isStart, isFinish, isWall, isVisited}: Props) {
 
-    const [active, setActive] = useState(false)
     const Drawing = useAppSelector(state => state.Drawing)
     const dispatch = useAppDispatch()
     const cellName = `x${col}y${row}`
@@ -21,7 +22,6 @@ export default function PathFinderCell({col, row, isStart, isFinish}: Props) {
     function displayWall(e : React.MouseEvent<HTMLDivElement>) {
         if (!Drawing.isDrawing) return
         e.preventDefault()
-        setActive(true)
         dispatch(setIsWall(cellName))
     }
 
@@ -31,10 +31,13 @@ export default function PathFinderCell({col, row, isStart, isFinish}: Props) {
         className=
             {`
                 ${styles.pathFinderCell}
-                ${active && !isStart && !isFinish ? styles.cellWall : ''}
+                ${isWall && !isStart && !isFinish ? styles.cellWall : ''}
                 ${isStart ? styles.cellStart : ''}      
-                ${isFinish ? styles.cellFinish : ''}  
+                ${isFinish ? styles.cellFinish : ''}
+                ${isVisited ? styles.cellVisited : ''}
             `}
     ></div>
   )
 }
+
+export default React.memo(PathFinderCell)

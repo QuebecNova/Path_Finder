@@ -7,7 +7,7 @@ function getWidth() {
 		document.body.clientWidth
 	)
 }
-
+// there we get current window width
 function useCurrentWidth(): number {
 	let [width, setWidth] = useState(0)
 

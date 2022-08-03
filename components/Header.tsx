@@ -11,9 +11,14 @@ export default function Header() {
     dispatch(clear())
   }
 
+  function animateAlgorythm() {
+
+  }
+
   return (
     <div className={styles.header}>
       <Button onClick={dispatchClear}>Clear Walls</Button>
+      <Button onClick={animateAlgorythm}>Animate!</Button>
     </div>
   )
 }

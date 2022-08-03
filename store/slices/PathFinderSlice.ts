@@ -1,13 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ObjCellsData } from '../../types/cellData'
+import { ObjCellsData, ObjWalls } from '../../types/cellData'
 
 interface IPathFinderState {
 	cellsData: ObjCellsData
+	walls: ObjWalls
+	visitedCells: ObjWalls
 	clearPressed: boolean
 }
 
 const initialState: IPathFinderState = {
 	cellsData: {},
+	walls: {},
+	visitedCells: {},
 	clearPressed: false,
 }
 
@@ -19,12 +23,10 @@ const PathFinderSlice = createSlice({
 			state.cellsData = action.payload
 		},
 		setIsWall(state, action: PayloadAction<string>) {
-			state.cellsData[action.payload].isWall = true
+			state.walls[action.payload] = true
 		},
 		clear(state) {
-			for (const cell in state.cellsData) {
-				state.cellsData[cell].isWall = false
-			}
+			state.walls = {}
 			state.clearPressed = !state.clearPressed
 		},
 	},

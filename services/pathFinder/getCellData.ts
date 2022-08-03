@@ -14,7 +14,6 @@ export function getCellData(row: number, col: number): CellData {
 	const cellData: CellData = {
 		x: row,
 		y: col,
-		isWall: false,
 		nearestCellsCoords: filteredNearestCells,
 	}
 	return cellData
