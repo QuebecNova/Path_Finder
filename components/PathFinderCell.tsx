@@ -26,7 +26,7 @@ function PathFinderCell({x, y, isStart, isFinish}: Props) {
 
   return (
     <div
-        onMouseEnter={displayWall}
+        onMouseMove={displayWall}
         id={cellName}
         className=
             {`

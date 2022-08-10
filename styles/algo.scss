@@ -10,4 +10,15 @@
 
 .cellPath {
 	background-color: $path !important;
+	animation: appearPath 0.2s linear;
+}
+
+@keyframes appearPath {
+	0% {
+		transform: scale(0.3);
+		border-radius: 100%;
+	}
+	100% {
+		transform: scale(1);
+	}
 }

@@ -26,8 +26,17 @@ const PathFinderSlice = createSlice({
 	initialState,
 	reducers: {
 		setIsWall(state, action: PayloadAction<string>) {
-			state.walls[action.payload] = true
-			document.getElementById(action.payload)?.classList.add('cellWall')
+			const element = document.getElementById(action.payload)
+			let containsStartOrFinish = false
+			element?.classList.forEach((name) => {
+				if (name.includes('cellStart') || name.includes('cellFinish')) {
+					containsStartOrFinish = true
+				}
+			})
+			if (!containsStartOrFinish) {
+				state.walls[action.payload] = true
+				element?.classList.add('cellWall')
+			}
 		},
 		setCellsData(state, action: PayloadAction<ISetCellsData>) {
 			state.cellsData = action.payload.cellsData

@@ -5,13 +5,16 @@ export default function displayPath(
 	endCell: string
 ) {
 	const path: string[] = [curCellsData[endCell].prevCell]
-	let end = false
+	let finished = false
 	return function createPath(prev: string) {
-		if (curCellsData[prev].start || end) {
-			end = true
+		if (curCellsData[prev].start || finished) {
+			finished = true
 			path.pop()
-			path.forEach((cell) => {
-				document.getElementById(cell)?.classList.add('cellPath')
+			path.reverse()
+			path.forEach((cell, i) => {
+				setTimeout(() => {
+					document.getElementById(cell)?.classList.add('cellPath')
+				}, 15 * i)
 			})
 			return
 		}
