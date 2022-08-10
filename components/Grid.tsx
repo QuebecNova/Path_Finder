@@ -3,8 +3,8 @@ import { useAppDispatch, useAppSelector } from '../hooks/redux'
 import { setCellsData } from '../store/slices/PathFinderSlice'
 import { ObjCellsData } from '../types/pathTypes'
 import PathFinderCell from './PathFinderCell';
-import { getCellData } from '../services/pathFinder/getCellData';
-import getCellName from '../services/pathFinder/getCellName';
+import { getCellData } from '../services/getCellData';
+import getCellName from '../services/getCellName';
 
 /*  
   /////////////////////// HOW GRID GENERATING WORKS: //////////////////////////

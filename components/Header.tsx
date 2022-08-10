@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from './../hooks/redux'
 import { setSelectedAlgo, clearAnimation, clearWalls } from '../store/slices/PathFinderSlice'
 import Select from './UI/Select'
 import selectOptions from '../data/selectData'
-import { dijkstra } from '../services/pathFinder/dijkstra'
+import { dijkstra } from '../services/algorithms/dijkstra'
 
 export default function Header() {
 

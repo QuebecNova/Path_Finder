@@ -1,6 +1,6 @@
 import { ObjCellsData, ObjWalls } from '../../types/pathTypes'
 import displayPath from './displayPath'
-import getCellName from './getCellName'
+import getCellName from '../getCellName'
 
 export function dijkstra(
 	cellsData: ObjCellsData,

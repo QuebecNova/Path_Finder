@@ -3,7 +3,7 @@ import { useAppSelector } from '../hooks/redux'
 import { setIsWall } from '../store/slices/PathFinderSlice';
 import styles from '../styles/PathFinder.module.scss'
 import { useAppDispatch } from './../hooks/redux';
-import getCellName from './../services/pathFinder/getCellName';
+import getCellName from '../services/getCellName';
 
 type Props = {
     x: number,
