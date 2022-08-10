@@ -1,4 +1,4 @@
-### My pathfinding app.
+# My pathfinding app.
 
 Here you can see how shortest path is getting. Drawable walls included.
 
