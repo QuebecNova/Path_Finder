@@ -7,6 +7,11 @@ export const store = configureStore({
 		PathFinder: PathFinderReducer,
 		Drawing: DrawingReducer,
 	},
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware({
+			immutableCheck: false,
+			serializableCheck: false,
+		}),
 })
 
 export type AppDispatch = typeof store.dispatch

@@ -21,18 +21,10 @@
 	background-color: white;
 }
 
-.cellWall {
-	background-color: $blue;
-}
-
 .cellStart {
 	background-color: $startGreen;
 }
 
 .cellFinish {
 	background-color: $finishRed;
-}
-
-.cellVisited {
-	background-color: $lightBlue;
 }

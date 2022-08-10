@@ -1,9 +1,10 @@
-@import "variables.scss";
+@import 'variables.scss';
 .header {
-  background-color: $header;
-  height: 6vh;
-  display: flex;
-  padding-left: 50px;
-  justify-content: flex-start;
-  align-items: center;
+	background-color: $header;
+	height: 6vh;
+	display: flex;
+	padding-left: 50px;
+	justify-content: flex-start;
+	gap: 50px;
+	align-items: center;
 }

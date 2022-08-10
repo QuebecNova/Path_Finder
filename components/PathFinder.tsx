@@ -8,7 +8,7 @@ import Grid from './Grid';
 export default function PathFinder() {
 
   const pathFinderRef = useRef(null)
-  const [rows, cols] = useSizeOfGrid(pathFinderRef)
+  const {x, y} = useSizeOfGrid(pathFinderRef)
   const dispatch = useAppDispatch()
 
   function setIsDrawingTrue(e : React.MouseEvent) : void {
@@ -26,7 +26,7 @@ export default function PathFinder() {
       onMouseDown={setIsDrawingTrue} 
       onMouseUp={setIsDrawingFalse}
     > 
-      <Grid cols={cols} rows={rows}/>
+      <Grid xTotal={x} yTotal={y}/>
     </div>
   )
 }

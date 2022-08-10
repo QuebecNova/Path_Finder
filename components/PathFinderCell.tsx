@@ -3,21 +3,20 @@ import { useAppSelector } from '../hooks/redux'
 import { setIsWall } from '../store/slices/PathFinderSlice';
 import styles from '../styles/PathFinder.module.scss'
 import { useAppDispatch } from './../hooks/redux';
+import getCellName from './../services/pathFinder/getCellName';
 
 type Props = {
-    col: number,
-    row: number,
+    x: number,
+    y: number,
     isStart: boolean,
     isFinish: boolean,
-    isWall: boolean,
-    isVisited: boolean
 }
 
-function PathFinderCell({col, row, isStart, isFinish, isWall, isVisited}: Props) {
+function PathFinderCell({x, y, isStart, isFinish}: Props) {
 
     const Drawing = useAppSelector(state => state.Drawing)
     const dispatch = useAppDispatch()
-    const cellName = `x${col}y${row}`
+    const cellName = getCellName(x, y)
 
     function displayWall(e : React.MouseEvent<HTMLDivElement>) {
         if (!Drawing.isDrawing) return
@@ -28,13 +27,12 @@ function PathFinderCell({col, row, isStart, isFinish, isWall, isVisited}: Props)
   return (
     <div
         onMouseEnter={displayWall}
+        id={cellName}
         className=
             {`
                 ${styles.pathFinderCell}
-                ${isWall && !isStart && !isFinish ? styles.cellWall : ''}
                 ${isStart ? styles.cellStart : ''}      
                 ${isFinish ? styles.cellFinish : ''}
-                ${isVisited ? styles.cellVisited : ''}
             `}
     ></div>
   )

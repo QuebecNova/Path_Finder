@@ -1,78 +1,74 @@
 import React, { ReactNode, useEffect, useRef, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../hooks/redux'
 import { setCellsData } from '../store/slices/PathFinderSlice'
-import { ObjCellsData } from '../types/cellData'
+import { ObjCellsData } from '../types/pathTypes'
 import PathFinderCell from './PathFinderCell';
-import { v4 as uuid } from 'uuid'
 import { getCellData } from '../services/pathFinder/getCellData';
+import getCellName from '../services/pathFinder/getCellName';
 
 /*  
   /////////////////////// HOW GRID GENERATING WORKS: //////////////////////////
   First in PathFinder.module.scss we set size of our grid and grid-cells.
-  Than we getting needed cols and rows number through hook useSizeOfGrid. 
+  Than we getting needed xs(x) and ys(y) number through hook useSizeOfGrid. 
   
-  If user changes browser width or height, useSizeOfGrid recalculate it again 
-  to fit exactly square-shaped. The browser size change handles useCurrentWidth hook.
+  If user changes byser width or height, useSizeOfGrid recalculate it again 
+  to fit exactly square-shaped. The byser size change handles useCurrentWidth hook.
 
-  It's needed because if we use static number of rows and cols, some rows not containing
-  enough cols to fit the size of PathFinder. 
+  It's needed because if we use static number of ys and xs(x), some ys(y) not containing
+  enough xs(x) to fit the size of PathFinder. 
 */
 
 type Props = {
-    cols: number
-    rows: number
-}
-
-interface GridInfo {
-    isWall: boolean,
-    isVisited: boolean
+    xTotal: number
+    yTotal: number
 }
 
 interface GridData {
-    [key: string]: GridInfo 
+    [key: string]: ReactNode
 }
 
-export default function Grid({cols, rows}: Props) {
+export default function Grid({xTotal, yTotal}: Props) {
 
     const dispatch = useAppDispatch()
-    const [renderedGrid, setRenderedGrid] = useState<ReactNode[]>([])
-    const PathFinder = useAppSelector(state => state.PathFinder)
+    const [renderedGrid, setRenderedGrid] = useState<GridData>({})
+    const clearPressed = useAppSelector(state => state.PathFinder.clearPressed)
 
   useEffect(() => {
     const cellsData : ObjCellsData = {}
-    const grid = []
-    for (let row = 1; row <= rows; row++) {
-      for (let col = 1; col <= cols; col++) {
-        const cellName = `x${col}y${row}`
-        cellsData[cellName] = getCellData(row, col)
+    const grid : GridData = {}
+    let start = {cellName: '', x: 0, y: 0}
+    let end = {cellName: '', x: 0, y: 0}
+    for (let y = 1; y <= yTotal; y++) {
+      for (let x = 1; x <= xTotal; x++) {
+        const cellName = getCellName(x, y)
+        cellsData[cellName] = getCellData(x, y, xTotal, yTotal)
 
         //finish and start cells
-        const isFinish = (row === Math.floor(rows / 2)) && (col === Math.floor(cols / 1.2))
-        const isStart = (row === Math.floor(rows / 2)) && (col === Math.floor(cols / 4.5))
+        const isFinish = (y === Math.floor(yTotal / 2)) && (x === Math.floor(xTotal / 1.2))
+        const isStart = (y === Math.floor(yTotal / 2)) && (x === Math.floor(xTotal / 4.5))
 
-        const isWall = PathFinder.walls[cellName]
-        const isVisited = PathFinder.visitedCells[cellName]
 
-        grid.push(
+        if (isStart) start = {cellName, x, y,}
+        if (isFinish) end = {cellName, x, y,}
+
+        grid[cellName] = (
             <PathFinderCell 
-                key={uuid()} 
-                col={col} 
-                row={row} 
+                key={cellName} 
+                x={x} 
+                y={y} 
                 isStart={isStart} 
                 isFinish={isFinish}
-                isWall={isWall}
-                isVisited={isVisited}
             />
         )
       }
     }
-    dispatch(setCellsData(cellsData))
+    dispatch(setCellsData({cellsData, start, end}))
     setRenderedGrid(grid)
-  }, [rows, cols, dispatch, PathFinder.clearPressed, PathFinder.walls, PathFinder.visitedCells])
+  }, [yTotal, xTotal, dispatch, clearPressed])
 
   return (
     <>
-        {renderedGrid}
+        {Object.values(renderedGrid)}
     </>
   )
 }

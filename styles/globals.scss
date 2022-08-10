@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 html,
 body {
 	padding: 0;
@@ -6,6 +8,15 @@ body {
 	font-family: 'Comfortaa', cursive, sans-serif;
 	font-weight: 500;
 	border: none;
+}
+
+select {
+	border: none;
+	background: none;
+}
+
+select:focus {
+	border: inherit;
 }
 
 a {
@@ -25,4 +36,16 @@ a {
 		color: white;
 		background: black;
 	}
+}
+
+.cellWall {
+	background-color: $blue !important;
+}
+
+.cellVisited {
+	background-color: $lightBlue !important;
+}
+
+.path {
+	background-color: green !important;
 }
