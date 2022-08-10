@@ -50,10 +50,19 @@ const PathFinderSlice = createSlice({
 				state.cellsData[action.payload.end.cellName].end = true
 			}
 		},
-		clear(state) {
+		clearWalls(state) {
 			state.walls = {}
 			const walls = document.querySelectorAll('.cellWall')
 			walls.forEach((wall) => wall.classList.remove('cellWall'))
+			state.clearPressed = !state.clearPressed
+		},
+		clearAll(state) {
+			state.walls = {}
+			for (const cell in state.cellsData) {
+				document
+					.getElementById(cell)
+					?.classList.remove('cellVisited', 'cellWall', 'cellPath')
+			}
 			state.clearPressed = !state.clearPressed
 		},
 		setSelectedAlgo(state, action: PayloadAction<string>) {
@@ -64,7 +73,12 @@ const PathFinderSlice = createSlice({
 	},
 })
 
-export const { setIsWall, setCellsData, clear, setSelectedAlgo } =
-	PathFinderSlice.actions
+export const {
+	setIsWall,
+	setCellsData,
+	clearWalls,
+	clearAll,
+	setSelectedAlgo,
+} = PathFinderSlice.actions
 
 export default PathFinderSlice.reducer

@@ -1,7 +1,7 @@
 import styles from '../styles/Header.module.scss'
 import Button from './UI/Button'
 import { useAppDispatch, useAppSelector } from './../hooks/redux'
-import { setSelectedAlgo, clear } from '../store/slices/PathFinderSlice'
+import { setSelectedAlgo, clearAll, clearWalls } from '../store/slices/PathFinderSlice'
 import Select from './UI/Select'
 import selectOptions from '../data/selectData'
 import { dijkstra } from '../services/pathFinder/dijkstra'
@@ -15,8 +15,12 @@ export default function Header() {
   const walls = useAppSelector(state => state.PathFinder.walls)
   const dispatch = useAppDispatch()
 
-  function dispatchClear() {
-    dispatch(clear())
+  function dispatchClearWalls() {
+    dispatch(clearWalls())
+  }
+
+  function dispatchClearAll() {
+    dispatch(clearAll())
   }
 
   function startAnimation() {
@@ -35,7 +39,8 @@ export default function Header() {
         onChange={changeSelected} 
         value={selectedAlgo}
       />
-      <Button onClick={dispatchClear}>Clear Walls</Button>
+      <Button onClick={dispatchClearAll}>Clear All</Button>
+      <Button onClick={dispatchClearWalls}>Clear Walls</Button>
       <Button onClick={startAnimation}>Animate!</Button>
     </div>
   )
