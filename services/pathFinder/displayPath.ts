@@ -11,7 +11,7 @@ export default function displayPath(
 			end = true
 			path.pop()
 			path.forEach((cell) => {
-				document.getElementById(cell)?.classList.add('path')
+				document.getElementById(cell)?.classList.add('cellPath')
 			})
 			return
 		}

@@ -47,7 +47,6 @@ export default function Grid({xTotal, yTotal}: Props) {
         const isFinish = (y === Math.floor(yTotal / 2)) && (x === Math.floor(xTotal / 1.2))
         const isStart = (y === Math.floor(yTotal / 2)) && (x === Math.floor(xTotal / 4.5))
 
-
         if (isStart) start = {cellName, x, y,}
         if (isFinish) end = {cellName, x, y,}
 

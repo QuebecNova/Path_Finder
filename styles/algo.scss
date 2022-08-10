@@ -1,0 +1,13 @@
+@import './variables.scss';
+
+.cellWall {
+	background-color: $blue !important;
+}
+
+.cellVisited {
+	background-color: $lightBlue !important;
+}
+
+.cellPath {
+	background-color: $path !important;
+}

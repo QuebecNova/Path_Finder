@@ -1,4 +1,5 @@
 @import './variables.scss';
+@import './algo.scss';
 
 html,
 body {
@@ -36,16 +37,4 @@ a {
 		color: white;
 		background: black;
 	}
-}
-
-.cellWall {
-	background-color: $blue !important;
-}
-
-.cellVisited {
-	background-color: $lightBlue !important;
-}
-
-.path {
-	background-color: green !important;
 }
