@@ -56,12 +56,11 @@ const PathFinderSlice = createSlice({
 			walls.forEach((wall) => wall.classList.remove('cellWall'))
 			state.clearPressed = !state.clearPressed
 		},
-		clearAll(state) {
-			state.walls = {}
+		clearAnimation(state) {
 			for (const cell in state.cellsData) {
 				document
 					.getElementById(cell)
-					?.classList.remove('cellVisited', 'cellWall', 'cellPath')
+					?.classList.remove('cellVisited', 'cellPath')
 			}
 			state.clearPressed = !state.clearPressed
 		},
@@ -77,7 +76,7 @@ export const {
 	setIsWall,
 	setCellsData,
 	clearWalls,
-	clearAll,
+	clearAnimation,
 	setSelectedAlgo,
 } = PathFinderSlice.actions
 
