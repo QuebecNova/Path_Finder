@@ -22,12 +22,19 @@ function PathFinderCell({x, y, isStart, isFinish}: Props) {
         if (!Drawing.drawingType) return
         const target = e.target as HTMLDivElement
         e.preventDefault()
+        let targetIsWall = false
         switch (Drawing.drawingType) {
             case 'movingStart':
-                dispatch(setStartCell(target.id))
+                target.classList.forEach(c => {
+                    if (c.includes('cellWall')) targetIsWall = true
+                })
+                !targetIsWall && dispatch(setStartCell(target.id))
                 break
             case 'movingEnd':
-                dispatch(setEndCell(target.id))
+                target.classList.forEach(c => {
+                    if (c.includes('cellWall')) targetIsWall = true
+                })
+                !targetIsWall && dispatch(setEndCell(target.id))
                 break
             case 'wall':
                 dispatch(setIsWall(cellName))
