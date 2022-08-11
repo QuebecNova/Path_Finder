@@ -23,8 +23,10 @@
 
 .cellStart {
 	background-color: $startGreen;
+	cursor: grab;
 }
 
 .cellFinish {
 	background-color: $finishRed;
+	cursor: grab;
 }

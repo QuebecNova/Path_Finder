@@ -1,23 +1,25 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+type DrawTypes = 'wall' | 'movingStart' | 'movingEnd' | null
+
 interface IDrawingState {
-	isDrawing: boolean
+	drawingType: DrawTypes
 }
 
 const initialState: IDrawingState = {
-	isDrawing: false,
+	drawingType: null,
 }
 
 const DrawingSlice = createSlice({
 	name: 'draw',
 	initialState,
 	reducers: {
-		setIsDrawing(state, action: PayloadAction<boolean>) {
-			state.isDrawing = action.payload
+		setDrawingType(state, action: PayloadAction<DrawTypes>) {
+			state.drawingType = action.payload
 		},
 	},
 })
 
-export const { setIsDrawing } = DrawingSlice.actions
+export const { setDrawingType } = DrawingSlice.actions
 
 export default DrawingSlice.reducer

@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useRef, useState } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../hooks/redux'
 import { setCellsData } from '../store/slices/PathFinderSlice'
 import { ObjCellsData } from '../types/pathTypes'
@@ -32,23 +32,29 @@ export default function Grid({xTotal, yTotal}: Props) {
     const dispatch = useAppDispatch()
     const [renderedGrid, setRenderedGrid] = useState<GridData>({})
     const clearPressed = useAppSelector(state => state.PathFinder.clearPressed)
+    const startCell = useAppSelector(state => state.PathFinder.startCell)
+    const endCell = useAppSelector(state => state.PathFinder.endCell)
 
   useEffect(() => {
     const cellsData : ObjCellsData = {}
     const grid : GridData = {}
-    let start = {cellName: '', x: 0, y: 0}
-    let end = {cellName: '', x: 0, y: 0}
+    let start = ''
+    let end = ''
     for (let y = 1; y <= yTotal; y++) {
       for (let x = 1; x <= xTotal; x++) {
         const cellName = getCellName(x, y)
         cellsData[cellName] = getCellData(x, y, xTotal, yTotal)
 
         //finish and start cells
-        const isFinish = (y === Math.floor(yTotal / 2)) && (x === Math.floor(xTotal / 1.2))
-        const isStart = (y === Math.floor(yTotal / 2)) && (x === Math.floor(xTotal / 4.5))
-
-        if (isStart) start = {cellName, x, y,}
-        if (isFinish) end = {cellName, x, y,}
+        //CAN BUG WHEN RESIZING WINDOW
+        const isStartNeedsDefault = (!startCell && ((y === Math.floor(yTotal / 2)) && (x === Math.floor(xTotal / 4.5))))
+        const isEndNeedsDefault = (!endCell && ((y === Math.floor(yTotal / 2)) && (x === Math.floor(xTotal / 1.2))))
+        
+        const isStart = (cellName === startCell) || isStartNeedsDefault
+        const isFinish = (cellName === endCell) || isEndNeedsDefault
+        
+        if (isStart) start = cellName
+        if (isFinish) end = cellName
 
         grid[cellName] = (
             <PathFinderCell 
@@ -61,9 +67,9 @@ export default function Grid({xTotal, yTotal}: Props) {
         )
       }
     }
-    dispatch(setCellsData({cellsData, start, end}))
+    dispatch(setCellsData({cellsData, startCell: start, endCell: end}))
     setRenderedGrid(grid)
-  }, [yTotal, xTotal, dispatch, clearPressed])
+  }, [yTotal, xTotal, dispatch, clearPressed, startCell, endCell])
 
   return (
     <>

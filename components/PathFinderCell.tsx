@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppSelector } from '../hooks/redux'
-import { setIsWall } from '../store/slices/PathFinderSlice';
+import { setEndCell, setIsWall, setStartCell } from '../store/slices/PathFinderSlice';
 import styles from '../styles/PathFinder.module.scss'
 import { useAppDispatch } from './../hooks/redux';
 import getCellName from '../services/getCellName';
@@ -19,9 +19,22 @@ function PathFinderCell({x, y, isStart, isFinish}: Props) {
     const cellName = getCellName(x, y)
 
     function displayWall(e : React.MouseEvent<HTMLDivElement>) {
-        if (!Drawing.isDrawing) return
+        if (!Drawing.drawingType) return
+        const target = e.target as HTMLDivElement
         e.preventDefault()
-        dispatch(setIsWall(cellName))
+        switch (Drawing.drawingType) {
+            case 'movingStart':
+                dispatch(setStartCell(target.id))
+                break
+            case 'movingEnd':
+                dispatch(setEndCell(target.id))
+                break
+            case 'wall':
+                dispatch(setIsWall(cellName))
+                break
+            default:
+                break
+        }
     }
 
   return (

@@ -1,4 +1,4 @@
-import { CellData } from '../../types/pathTypes'
+import { CellData } from '../types/pathTypes'
 
 export function getCellData(
 	x: number,

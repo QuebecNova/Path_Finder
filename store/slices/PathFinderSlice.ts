@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import getCellName from '../../services/getCellName'
 import { ObjCellsData, ObjWalls, ISetCellsData } from '../../types/pathTypes'
 
 interface IPathFinderState {
@@ -40,15 +41,24 @@ const PathFinderSlice = createSlice({
 		},
 		setCellsData(state, action: PayloadAction<ISetCellsData>) {
 			state.cellsData = action.payload.cellsData
-			if (action.payload.start.cellName) {
-				state.startCell = action.payload.start.cellName
-				state.cellsData[action.payload.start.cellName].start = true
-				state.cellsData[action.payload.start.cellName].distance = 0
+			if (action.payload.startCell) {
+				state.startCell = action.payload.startCell
+				state.cellsData[action.payload.startCell].start = true
+				state.cellsData[action.payload.startCell].distance = 0
 			}
-			if (action.payload.end.cellName) {
-				state.endCell = action.payload.end.cellName
-				state.cellsData[action.payload.end.cellName].end = true
+			if (action.payload.endCell) {
+				state.endCell = action.payload.endCell
+				state.cellsData[action.payload.endCell].end = true
 			}
+		},
+		setStartCell(state, action: PayloadAction<string>) {
+			state.startCell = action.payload
+			state.cellsData[action.payload].start = true
+			state.cellsData[action.payload].distance = 0
+		},
+		setEndCell(state, action: PayloadAction<string>) {
+			state.endCell = action.payload
+			state.cellsData[action.payload].end = true
 		},
 		clearWalls(state) {
 			state.walls = {}
@@ -78,6 +88,8 @@ export const {
 	clearWalls,
 	clearAnimation,
 	setSelectedAlgo,
+	setStartCell,
+	setEndCell,
 } = PathFinderSlice.actions
 
 export default PathFinderSlice.reducer
