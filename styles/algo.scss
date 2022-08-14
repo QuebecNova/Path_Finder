@@ -1,5 +1,9 @@
 @import './variables.scss';
 
+.cellPlanned {
+	background-color: $pink !important;
+}
+
 .cellWall {
 	background-color: $blue !important;
 }

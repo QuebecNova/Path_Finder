@@ -15,7 +15,7 @@ export default function PathFinder() {
     e.preventDefault()
     const target = e.target as HTMLDivElement
     let isStartOrFinish = false
-    console.log(target.classList.forEach(c => {
+    target.classList.forEach(c => {
       if (c.includes('cellStart')) {
         isStartOrFinish = true
         dispatch(setDrawingType('movingStart'))
@@ -23,7 +23,7 @@ export default function PathFinder() {
         isStartOrFinish = true
         dispatch(setDrawingType('movingEnd'))
       }
-    }));
+    });
     
     if (!isStartOrFinish) {
       dispatch(setDrawingType('wall'))

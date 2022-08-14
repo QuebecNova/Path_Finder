@@ -1,10 +1,11 @@
 import styles from '../styles/Header.module.scss'
 import Button from './UI/Button'
 import { useAppDispatch, useAppSelector } from './../hooks/redux'
-import { setSelectedAlgo, clearAnimation, clearWalls } from '../store/slices/PathFinderSlice'
+import { setChoosenAlgorithm, clearAnimation, clearWalls } from '../store/slices/PathFinderSlice'
 import Select from './UI/Select'
 import selectOptions from '../data/selectData'
-import { dijkstra } from '../services/algorithms/dijkstra'
+import { AlgoTypes } from '../types/algoTypes'
+import startAlgo from '../helpers/algorithms/startAlgo'
 
 export default function Header() {
 
@@ -24,18 +25,19 @@ export default function Header() {
   }
 
   function startAnimation() {
-    dijkstra(cellsData, startCell, endCell, walls)(startCell)
+        startAlgo(selectedAlgo, cellsData, startCell, endCell, walls)
   }
 
   function changeSelected(e : React.ChangeEvent<HTMLSelectElement>) {
-    dispatch(setSelectedAlgo(e.target.value))
+    const value = e.target.value as AlgoTypes
+    dispatch(setChoosenAlgorithm(value))
   }
 
   return (
     <div className={styles.header}>
       <Select 
         options={selectOptions} 
-        defaultValue='Choose Algorythm' 
+        defaultValue='Choose Algorythm'
         onChange={changeSelected} 
         value={selectedAlgo}
       />

@@ -1,9 +1,6 @@
 import { ObjCellsData } from '../../types/pathTypes'
 
-export default function displayPath(
-	curCellsData: ObjCellsData,
-	endCell: string
-) {
+export function displayPath(curCellsData: ObjCellsData, endCell: string) {
 	const path: string[] = [curCellsData[endCell].prevCell]
 	let finished = false
 	return function createPath(prev: string) {
@@ -21,4 +18,12 @@ export default function displayPath(
 		path.push(prevCell)
 		createPath(prevCell)
 	}
+}
+
+export function displayVisitedNode(cellID: string) {
+	document.getElementById(cellID)?.classList.add('cellVisited')
+}
+
+export function displayPlannedToVisitNode(cellID: string) {
+	document.getElementById(cellID)?.classList.add('cellPlanned')
 }

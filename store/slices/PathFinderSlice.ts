@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import getCellName from '../../services/getCellName'
+import { AlgoTypes } from '../../types/algo'
 import { ObjCellsData, ObjWalls, ISetCellsData } from '../../types/pathTypes'
 
 interface IPathFinderState {
 	cellsData: ObjCellsData
 	walls: ObjWalls
 	clearPressed: boolean
-	selectedAlgo: 'dijkstra'
+	selectedAlgo: AlgoTypes
 	isAnimatingAlgo: boolean
 	startCell: string
 	endCell: string
@@ -70,14 +70,12 @@ const PathFinderSlice = createSlice({
 			for (const cell in state.cellsData) {
 				document
 					.getElementById(cell)
-					?.classList.remove('cellVisited', 'cellPath')
+					?.classList.remove('cellVisited', 'cellPath', 'cellPlanned')
 			}
 			state.clearPressed = !state.clearPressed
 		},
-		setSelectedAlgo(state, action: PayloadAction<string>) {
-			if (action.payload === 'dijkstra') {
-				state.selectedAlgo = action.payload
-			}
+		setChoosenAlgorithm(state, action: PayloadAction<AlgoTypes>) {
+			state.selectedAlgo = action.payload
 		},
 	},
 })
@@ -87,9 +85,9 @@ export const {
 	setCellsData,
 	clearWalls,
 	clearAnimation,
-	setSelectedAlgo,
 	setStartCell,
 	setEndCell,
+	setChoosenAlgorithm,
 } = PathFinderSlice.actions
 
 export default PathFinderSlice.reducer
