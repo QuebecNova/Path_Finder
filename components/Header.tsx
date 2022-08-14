@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from './../hooks/redux'
 import { setChoosenAlgorithm, clearAnimation, clearWalls } from '../store/slices/PathFinderSlice'
 import Select from './UI/Select'
 import selectOptions from '../data/selectData'
-import { AlgoTypes } from '../types/algoTypes'
+import { AlgoTypes } from '../types/algo'
 import startAlgo from '../helpers/algorithms/startAlgo'
 
 export default function Header() {
